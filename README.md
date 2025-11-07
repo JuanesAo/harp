@@ -1,6 +1,6 @@
 # App de Gustos Musicales ❤️🎵
 
-Una aplicación romántica en Streamlit para compartir tus gustos musicales.
+Una aplicación romántica en Streamlit para compartir tus gustos musicales, optimizada para móviles.
 
 ## Instalación
 
@@ -17,14 +17,21 @@ streamlit run app.py
 ## Personalización
 
 Para agregar tus links de música, edita el archivo `app.py`:
-- **Línea 123**: Reemplaza el link de Apple Music
-- **Línea 137**: Reemplaza el link de Spotify
+- **Línea 203**: Reemplaza el link de Apple Music
+- **Línea 224**: Reemplaza el link de Spotify
+
+Los logos se cargan automáticamente desde `imagenes/logos/`:
+- `apple_music.jpg` - Logo de Apple Music
+- `spotify logo.png` - Logo de Spotify
 
 ## Características
 
 - ✨ Diseño romántico con colores negro y rojo
-- 🎵 Dos cards para Apple Music y Spotify
+- 🎵 Logos reales de Apple Music y Spotify
 - ❤️ Mensaje personalizado y emotivo
 - 🎨 Animaciones y efectos hover
-- 📱 Diseño responsive
+- 📱 **Completamente responsive y optimizado para móviles**
+- 🌐 Texto adaptable con tamaños dinámicos (clamp CSS)
+- 💖 Interfaz limpia sin menús de Streamlit
+- 🎭 Transiciones suaves y efectos táctiles
 
