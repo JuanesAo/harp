@@ -233,10 +233,20 @@ def get_image_base64(image_path):
 apple_music_b64 = get_image_base64("imagenes/logos/apple_music.jpg")
 spotify_b64 = get_image_base64("imagenes/logos/spotify_logo.png")
 
-# Crear HTML con la card de Apple Music
+# Crear HTML con dos cards de Apple Music
 st.markdown(f"""
     <div class="cards-container">
-        <!-- Card de Apple Music -->
+        <!-- Card de Apple Music 1 -->
+        <div class="music-card">
+            <div class="card-image-container">
+                <img src="data:image/jpeg;base64,{apple_music_b64}" alt="Apple Music">
+            </div>
+            <a href="https://music.apple.com/co/playlist/harper/pl.u-KVXBkA6TLXoqzeo?l=en" target="_blank" class="card-button">
+                🎵 Escuchar en Apple Music
+            </a>
+        </div>
+        
+        <!-- Card de Apple Music 2 -->
         <div class="music-card">
             <div class="card-image-container">
                 <img src="data:image/jpeg;base64,{apple_music_b64}" alt="Apple Music">
