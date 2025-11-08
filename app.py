@@ -196,6 +196,41 @@ st.markdown("""
             transform: scale(1.1);
         }
     }
+    
+    /* Responsive para móviles */
+    @media (max-width: 768px) {
+        .title {
+            font-size: 1.8em;
+        }
+        .romantic-message {
+            font-size: 1em;
+            padding: 20px;
+        }
+        .music-card {
+            min-width: 100%;
+            max-width: 100%;
+            padding: 30px 20px;
+        }
+        .card-image-container img {
+            width: 150px;
+        }
+        .card-button {
+            font-size: 1em;
+            padding: 12px 20px;
+        }
+    }
+    @media (max-width: 480px) {
+        .title {
+            font-size: 1.5em;
+        }
+        .romantic-message {
+            font-size: 0.9em;
+            padding: 15px;
+        }
+        .card-image-container img {
+            width: 120px;
+        }
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -291,7 +326,7 @@ if fotos_b64:
         }
         .carousel-track {
             display: flex;
-            animation: scroll 30s linear infinite;
+            animation: scroll 10s linear infinite;
             gap: 20px;
         }
         .carousel-track:hover {
@@ -305,6 +340,7 @@ if fotos_b64:
             box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
             transition: transform 0.3s ease;
             border: 3px solid #ff0000;
+            flex-shrink: 0;
         }
         .carousel-item:hover {
             transform: scale(1.1);
@@ -321,6 +357,28 @@ if fotos_b64:
             }
             100% {
                 transform: translateX(-50%);
+            }
+        }
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .carousel-item {
+                min-width: 200px;
+                height: 200px;
+            }
+            .carousel-container {
+                padding: 20px 0;
+            }
+            .carousel-track {
+                gap: 15px;
+            }
+        }
+        @media (max-width: 480px) {
+            .carousel-item {
+                min-width: 150px;
+                height: 150px;
+            }
+            .carousel-track {
+                gap: 10px;
             }
         }
         </style>
