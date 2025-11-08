@@ -1,4 +1,5 @@
 import streamlit as st
+import base64
 
 # Configuración de la página
 st.set_page_config(
@@ -219,19 +220,45 @@ st.markdown("""
 # Corazones decorativos
 st.markdown('<div class="hearts">❤️ 🖤 ❤️</div>', unsafe_allow_html=True)
 
-# Cards con botones usando columnas de Streamlit
+# Cards con botones usando HTML y cargando imágenes con base64
+# Función para convertir imagen a base64
+def get_image_base64(image_path):
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except:
+        return None
+
+# Cargar imágenes
+apple_music_b64 = get_image_base64("imagenes/logos/apple_music.jpg")
+spotify_b64 = get_image_base64("imagenes/logos/spotify_logo.png")
+
+# Crear cards usando columnas
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    st.image("imagenes/logos/apple_music.jpg", width=200)
-    st.markdown("""
-        <a href="https://music.apple.com/co/playlist/harper/pl.u-KVXBkA6TLXoqzeo?l=en" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%); color: white; text-decoration: none; padding: 15px 30px; font-size: 1.1em; font-weight: bold; border-radius: 25px; text-align: center; width: 100%; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);">
-            🎵 Escuchar en Apple Music
-        </a>
+    st.markdown(f"""
+        <div class="music-card">
+            <div class="card-image-container">
+                <img src="data:image/jpeg;base64,{apple_music_b64}" alt="Apple Music">
+            </div>
+            <a href="https://music.apple.com/co/playlist/harper/pl.u-KVXBkA6TLXoqzeo?l=en" target="_blank" class="card-button">
+                🎵 Escuchar en Apple Music
+            </a>
+        </div>
     """, unsafe_allow_html=True)
 
 with col2:
-    st.image("imagenes/logos/apple_music.jpg", width=200)
+    st.markdown(f"""
+        <div class="music-card">
+            <div class="card-image-container">
+                <img src="data:image/png;base64,{spotify_b64}" alt="Spotify">
+            </div>
+            <a href="https://open.spotify.com/playlist/5C5F0yGMSrLe6SimZoNYui?si=Aqm5xGgDRLuTZ5OpmrfIxg&pi=7cZG02ciTnOUx" target="_blank" class="card-button">
+                🎵 Escuchar en Spotify
+            </a>
+        </div>
+    """, unsafe_allow_html=True)
 
 # Pie de página romántico
 st.markdown('<div class="hearts">🖤</div>', unsafe_allow_html=True)
