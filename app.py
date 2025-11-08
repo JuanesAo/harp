@@ -233,7 +233,7 @@ def get_image_base64(image_path):
 apple_music_b64 = get_image_base64("imagenes/logos/apple_music.jpg")
 spotify_b64 = get_image_base64("imagenes/logos/spotify_logo.png")
 
-# Crear HTML con imágenes embebidas - Lógica idéntica para ambas cards
+# Crear HTML con la card de Apple Music
 st.markdown(f"""
     <div class="cards-container">
         <!-- Card de Apple Music -->
@@ -243,16 +243,6 @@ st.markdown(f"""
             </div>
             <a href="https://music.apple.com/co/playlist/harper/pl.u-KVXBkA6TLXoqzeo?l=en" target="_blank" class="card-button">
                 🎵 Escuchar en Apple Music
-            </a>
-        </div>
-        
-        <!-- Card de Spotify -->
-        <div class="music-card">
-            <div class="card-image-container">
-                <img src="data:image/png;base64,{spotify_b64}" alt="Spotify">
-            </div>
-            <a href="https://open.spotify.com/playlist/5C5F0yGMSrLe6SimZoNYui?si=Aqm5xGgDRLuTZ5OpmrfIxg&pi=7cZG02ciTnOUx" target="_blank" class="card-button">
-                🎵 Escuchar en Spotify
             </a>
         </div>
     </div>
