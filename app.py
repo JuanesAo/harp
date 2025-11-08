@@ -276,7 +276,7 @@ for foto in fotos:
 
 # Crear HTML del carrusel
 if fotos_b64:
-    st.markdown('<div style="margin-top: 60px;"><h2 style="text-align: center; color: #ff0000; font-family: Georgia, serif; margin-bottom: 30px;">💕 Momentos Especiales 💕</h2></div>', unsafe_allow_html=True)
+    st.markdown('<div style="margin-top: 60px;"><h2 style="text-align: center; color: #ff0000; font-family: Georgia, serif; margin-bottom: 30px;">📸 Top Fotos de Ambos 📸</h2></div>', unsafe_allow_html=True)
     
     # CSS para el carrusel animado
     st.markdown("""
@@ -291,7 +291,7 @@ if fotos_b64:
         }
         .carousel-track {
             display: flex;
-            animation: scroll 60s linear infinite;
+            animation: scroll 30s linear infinite;
             gap: 20px;
         }
         .carousel-track:hover {
