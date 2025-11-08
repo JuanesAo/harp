@@ -225,24 +225,21 @@ st.markdown('<div class="hearts">❤️ 🖤 ❤️</div>', unsafe_allow_html=Tr
 def get_image_base64(image_path):
     try:
         with open(image_path, "rb") as img_file:
-            encoded = base64.b64encode(img_file.read()).decode()
-            st.success(f"✅ Imagen cargada: {image_path}")
-            return encoded
-    except Exception as e:
-        st.error(f"❌ Error cargando {image_path}: {e}")
+            return base64.b64encode(img_file.read()).decode()
+    except:
         return None
 
 # Cargar imágenes
 apple_music_b64 = get_image_base64("imagenes/logos/apple_music.jpg")
 spotify_b64 = get_image_base64("imagenes/logos/spotify_logo.png")
 
-# Crear HTML con imágenes embebidas
-cards_html = f"""
+# Crear HTML con imágenes embebidas - Lógica idéntica para ambas cards
+st.markdown(f"""
     <div class="cards-container">
         <!-- Card de Apple Music -->
         <div class="music-card">
             <div class="card-image-container">
-                {f'<img src="data:image/jpeg;base64,{apple_music_b64}" alt="Apple Music">' if apple_music_b64 else '<div style="height: 200px;"></div>'}
+                <img src="data:image/jpeg;base64,{apple_music_b64}" alt="Apple Music">
             </div>
             <a href="https://music.apple.com/co/playlist/harper/pl.u-KVXBkA6TLXoqzeo?l=en" target="_blank" class="card-button">
                 🎵 Escuchar en Apple Music
@@ -252,22 +249,20 @@ cards_html = f"""
         <!-- Card de Spotify -->
         <div class="music-card">
             <div class="card-image-container">
-                {f'<img src="data:image/png;base64,{spotify_b64}" alt="Spotify">' if spotify_b64 else '<div style="height: 200px;"></div>'}
+                <img src="data:image/png;base64,{spotify_b64}" alt="Spotify">
             </div>
             <a href="https://open.spotify.com/playlist/5C5F0yGMSrLe6SimZoNYui?si=Aqm5xGgDRLuTZ5OpmrfIxg&pi=7cZG02ciTnOUx" target="_blank" class="card-button">
                 🎵 Escuchar en Spotify
             </a>
         </div>
     </div>
-"""
-
-st.markdown(cards_html, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Pie de página romántico
 st.markdown('<div class="hearts">🖤</div>', unsafe_allow_html=True)
 st.markdown("""
     <div style="text-align: center; color: #ff6666; margin-top: 40px; font-style: italic;">
         Con amor, sentimiento mas puro que mi corazón alberga ahora transformado en canciones 🎶
-    </div
+    </div>
 """, unsafe_allow_html=True)
 
