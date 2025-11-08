@@ -237,7 +237,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Título
-st.markdown('<div class="title">🌹 Para Harp y Manu 🌹</div>', unsafe_allow_html=True)
+st.markdown('<div class="title">🌹 Para Harp / Manu 🌹</div>', unsafe_allow_html=True)
 
 # Mensaje romántico
 st.markdown("""
@@ -332,27 +332,40 @@ for foto in fotos:
 if fotos_b64:
     st.markdown('<div style="margin-top: 60px;"><h2 style="text-align: center; color: #ff0000; font-family: Georgia, serif; margin-bottom: 30px;">📸 Top Fotos de Ambos 📸</h2></div>', unsafe_allow_html=True)
     
-    # CSS para el carrusel animado
+    # CSS para el slider horizontal
     st.markdown("""
         <style>
-        .carousel-container {
-            overflow: hidden;
+        .photo-slider {
+            overflow-x: auto;
+            overflow-y: hidden;
             width: 100%;
             margin: 40px 0;
             background: rgba(0, 0, 0, 0.2);
-            padding: 30px 0;
+            padding: 30px 20px;
             border-radius: 15px;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
         }
-        .carousel-track {
+        .photo-slider::-webkit-scrollbar {
+            height: 12px;
+        }
+        .photo-slider::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .photo-slider::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            border-radius: 10px;
+        }
+        .photo-slider::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff3333 0%, #ff0000 100%);
+        }
+        .photo-track {
             display: flex;
-            animation: scroll 40s linear infinite;
             gap: 20px;
-            padding-left: 20px;
+            padding: 10px 0;
         }
-        .carousel-track:hover {
-            animation-play-state: paused;
-        }
-        .carousel-item {
+        .photo-item {
             min-width: 300px;
             height: 300px;
             border-radius: 15px;
@@ -361,64 +374,59 @@ if fotos_b64:
             transition: transform 0.3s ease;
             border: 3px solid #ff0000;
             flex-shrink: 0;
+            cursor: pointer;
         }
-        .carousel-item:hover {
-            transform: scale(1.1);
+        .photo-item:hover {
+            transform: scale(1.05);
             box-shadow: 0 15px 40px rgba(255, 0, 0, 0.7);
         }
-        .carousel-item img {
+        .photo-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-33.333%);
-            }
-        }
         /* Responsive para móviles */
         @media (max-width: 768px) {
-            .carousel-item {
+            .photo-item {
                 min-width: 200px;
                 height: 200px;
             }
-            .carousel-container {
-                padding: 20px 0;
+            .photo-slider {
+                padding: 20px 15px;
             }
-            .carousel-track {
+            .photo-track {
                 gap: 15px;
             }
         }
         @media (max-width: 480px) {
-            .carousel-item {
+            .photo-item {
                 min-width: 150px;
                 height: 150px;
             }
-            .carousel-track {
+            .photo-track {
                 gap: 10px;
+            }
+            .photo-slider::-webkit-scrollbar {
+                height: 8px;
             }
         }
         </style>
     """, unsafe_allow_html=True)
     
-    # Crear las fotos tres veces para asegurar loop infinito
+    # Crear el HTML de las fotos
     fotos_html = ""
-    for _ in range(3):  # Triplicar las fotos
-        for foto_b64 in fotos_b64:
-            fotos_html += f'<div class="carousel-item"><img src="data:image/jpeg;base64,{foto_b64}" alt="Foto"></div>'
+    for foto_b64 in fotos_b64:
+        fotos_html += f'<div class="photo-item"><img src="data:image/jpeg;base64,{foto_b64}" alt="Foto"></div>'
     
-    carousel_html = f"""
-        <div class="carousel-container">
-            <div class="carousel-track">
+    slider_html = f"""
+        <div class="photo-slider">
+            <div class="photo-track">
                 {fotos_html}
             </div>
         </div>
     """
     
-    st.markdown(carousel_html, unsafe_allow_html=True)
+    st.markdown(slider_html, unsafe_allow_html=True)
 
 # Pie de página romántico
 st.markdown('<div class="hearts">🖤</div>', unsafe_allow_html=True)
