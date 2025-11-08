@@ -376,7 +376,7 @@ if fotos_b64:
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(-50%);
+                transform: translateX(-33.333%);
             }
         }
         /* Responsive para móviles */
@@ -404,16 +404,15 @@ if fotos_b64:
         </style>
     """, unsafe_allow_html=True)
     
-    # Duplicar las fotos para efecto infinito
+    # Crear las fotos tres veces para asegurar loop infinito
     fotos_html = ""
-    for foto_b64 in fotos_b64:
-        fotos_html += f'<div class="carousel-item"><img src="data:image/jpeg;base64,{foto_b64}" alt="Foto"></div>'
+    for _ in range(3):  # Triplicar las fotos
+        for foto_b64 in fotos_b64:
+            fotos_html += f'<div class="carousel-item"><img src="data:image/jpeg;base64,{foto_b64}" alt="Foto"></div>'
     
-    # Duplicar para efecto infinito
     carousel_html = f"""
         <div class="carousel-container">
             <div class="carousel-track">
-                {fotos_html}
                 {fotos_html}
             </div>
         </div>
