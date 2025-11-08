@@ -225,13 +225,16 @@ st.markdown('<div class="hearts">❤️ 🖤 ❤️</div>', unsafe_allow_html=Tr
 def get_image_base64(image_path):
     try:
         with open(image_path, "rb") as img_file:
-            return base64.b64encode(img_file.read()).decode()
-    except:
+            encoded = base64.b64encode(img_file.read()).decode()
+            st.success(f"✅ Imagen cargada: {image_path}")
+            return encoded
+    except Exception as e:
+        st.error(f"❌ Error cargando {image_path}: {e}")
         return None
 
 # Cargar imágenes
 apple_music_b64 = get_image_base64("imagenes/logos/apple_music.jpg")
-spotify_b64 = get_image_base64("imagenes/logos/spotify logo.png")
+spotify_b64 = get_image_base64("imagenes/logos/spotify_logo.png")
 
 # Crear HTML con imágenes embebidas
 cards_html = f"""
@@ -264,7 +267,7 @@ st.markdown(cards_html, unsafe_allow_html=True)
 st.markdown('<div class="hearts">🖤</div>', unsafe_allow_html=True)
 st.markdown("""
     <div style="text-align: center; color: #ff6666; margin-top: 40px; font-style: italic;">
-        Con amor, para que siempre me recuerdes a través de la música 🎶
-    </div>
+        Con amor, sentimiento mas puro que mi corazón alberga ahora transformado en canciones 🎶
+    </div
 """, unsafe_allow_html=True)
 
