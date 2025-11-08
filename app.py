@@ -1,4 +1,5 @@
 import streamlit as st
+import base64
 
 # Configuración de la página
 st.set_page_config(
@@ -51,13 +52,14 @@ st.markdown("""
         padding: 0 20px;
     }
     
-    /* Estilos de las cards */
+    /* Estilos de las cards personalizadas */
     .music-card {
         background: linear-gradient(145deg, #1a0000, #330000);
         border: 3px solid #ff0000;
         border-radius: 20px;
         padding: 40px 30px;
         min-width: 280px;
+        max-width: 320px;
         text-align: center;
         box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
         transition: all 0.4s ease;
@@ -87,11 +89,12 @@ st.markdown("""
         opacity: 1;
     }
     
+    /* Contenedor de imágenes dentro de cards */
     .card-image-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
         padding: 20px;
         background: rgba(0, 0, 0, 0.3);
         border-radius: 15px;
@@ -103,10 +106,37 @@ st.markdown("""
         transform: scale(1.05);
     }
     
-    /* Ocultar el container de streamlit */
-    .stImage {
-        display: flex !important;
-        justify-content: center !important;
+    .card-image-container img {
+        border-radius: 10px;
+        width: 200px;
+        height: auto;
+    }
+    
+    /* Botón dentro de card */
+    .card-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+        color: white;
+        text-decoration: none;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+        width: 100%;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .card-button:hover {
+        background: linear-gradient(135deg, #ff3333 0%, #ff0000 100%);
+        box-shadow: 0 6px 25px rgba(255, 0, 0, 0.8);
+        transform: scale(1.08);
+        text-decoration: none;
+        color: white;
     }
     
     /* Botones */
@@ -168,58 +198,67 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Título
-st.markdown('<div class="title">❤️ Para Ti ❤️</div>', unsafe_allow_html=True)
+st.markdown('<div class="title">🌹 Para Harp y Manu 🌹</div>', unsafe_allow_html=True)
 
 # Mensaje romántico
 st.markdown("""
     <div class="romantic-message">
-        Quiero que una parte de mí viva en ti...<br>
-        Mis gustos musicales, mis canciones favoritas,<br>
-        todo lo que me hace sentir vivo.<br>
+        Mis sentimientos fueron tan grandes<br>
+        que logré partirlos en 182 pedacitos,<br>
+        y a cada uno le di forma de canción.<br>
         <br>
-        Cada melodía es un pedazo de mi alma<br>
-        que quiero compartir contigo 🎵❤️
+        No sé si esta playlist es tristeza, amor o memoria.<br>
+        Solo sé que cada melodía guarda algo mío que alguna vez fue tuyo.<br>
+        <br>
+        Y si alguna vez la escuchas,<br>
+        que sepas que ahí sigo,<br>
+        en cada verso que quema, en cada acorde que sana,<br>
+        esperando que el eco de mi alma aún te encuentre.
     </div>
 """, unsafe_allow_html=True)
 
 # Corazones decorativos
 st.markdown('<div class="hearts">❤️ 🖤 ❤️</div>', unsafe_allow_html=True)
 
-# Contenedor de cards
-st.markdown('<div class="cards-container">', unsafe_allow_html=True)
+# Cards con botones usando HTML y cargando imágenes con base64
+# Función para convertir imagen a base64
+def get_image_base64(image_path):
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except:
+        return None
 
-# Cards con botones
-col1, col2 = st.columns(2, gap="large")
+# Cargar imágenes
+apple_music_b64 = get_image_base64("imagenes/logos/apple_music.jpg")
+spotify_b64 = get_image_base64("imagenes/logos/spotify logo.png")
 
-with col1:
-    st.markdown('<div class="music-card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-image-container">', unsafe_allow_html=True)
-    st.image("imagenes/logos/apple_music.jpg", width=200)
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Botón para Apple Music
-    if st.button("🎵 Escuchar en Apple Music", key="apple", use_container_width=True):
-        # Aquí irá el link de Apple Music
-        apple_music_link = "https://music.apple.com"  # Reemplazar con tu link
-        st.markdown(f'<meta http-equiv="refresh" content="0;url={apple_music_link}">', unsafe_allow_html=True)
-        st.success("Redirigiendo a Apple Music...")
-    st.markdown('</div>', unsafe_allow_html=True)
+# Crear HTML con imágenes embebidas
+cards_html = f"""
+    <div class="cards-container">
+        <!-- Card de Apple Music -->
+        <div class="music-card">
+            <div class="card-image-container">
+                {f'<img src="data:image/jpeg;base64,{apple_music_b64}" alt="Apple Music">' if apple_music_b64 else '<div style="height: 200px;"></div>'}
+            </div>
+            <a href="https://music.apple.com/co/playlist/harper/pl.u-KVXBkA6TLXoqzeo?l=en" target="_blank" class="card-button">
+                🎵 Escuchar en Apple Music
+            </a>
+        </div>
+        
+        <!-- Card de Spotify -->
+        <div class="music-card">
+            <div class="card-image-container">
+                {f'<img src="data:image/png;base64,{spotify_b64}" alt="Spotify">' if spotify_b64 else '<div style="height: 200px;"></div>'}
+            </div>
+            <a href="https://open.spotify.com/playlist/5C5F0yGMSrLe6SimZoNYui?si=Aqm5xGgDRLuTZ5OpmrfIxg&pi=7cZG02ciTnOUx" target="_blank" class="card-button">
+                🎵 Escuchar en Spotify
+            </a>
+        </div>
+    </div>
+"""
 
-with col2:
-    st.markdown('<div class="music-card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-image-container">', unsafe_allow_html=True)
-    st.image("imagenes/logos/spotify logo.png", width=200)
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Botón para Spotify
-    if st.button("🎵 Escuchar en Spotify", key="spotify", use_container_width=True):
-        # Aquí irá el link de Spotify
-        spotify_link = "https://open.spotify.com"  # Reemplazar con tu link
-        st.markdown(f'<meta http-equiv="refresh" content="0;url={spotify_link}">', unsafe_allow_html=True)
-        st.success("Redirigiendo a Spotify...")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown(cards_html, unsafe_allow_html=True)
 
 # Pie de página romántico
 st.markdown('<div class="hearts">🖤</div>', unsafe_allow_html=True)
