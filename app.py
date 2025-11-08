@@ -233,9 +233,10 @@ def get_image_base64(image_path):
 apple_music_b64 = get_image_base64("imagenes/logos/apple_music.jpg")
 spotify_b64 = get_image_base64("imagenes/logos/spotify_logo.png")
 
-# Crear HTML con las cards
-if apple_music_b64:
-    apple_card = f"""
+# Crear HTML con la card de Apple Music
+st.markdown(f"""
+    <div class="cards-container">
+        <!-- Card de Apple Music -->
         <div class="music-card">
             <div class="card-image-container">
                 <img src="data:image/jpeg;base64,{apple_music_b64}" alt="Apple Music">
@@ -244,28 +245,6 @@ if apple_music_b64:
                 🎵 Escuchar en Apple Music
             </a>
         </div>
-    """
-else:
-    apple_card = ""
-
-if spotify_b64:
-    spotify_card = f"""
-        <div class="music-card">
-            <div class="card-image-container">
-                <img src="data:image/png;base64,{spotify_b64}" alt="Spotify">
-            </div>
-            <a href="https://open.spotify.com/playlist/5C5F0yGMSrLe6SimZoNYui?si=Aqm5xGgDRLuTZ5OpmrfIxg&pi=7cZG02ciTnOUx" target="_blank" class="card-button">
-                🎵 Escuchar en Spotify
-            </a>
-        </div>
-    """
-else:
-    spotify_card = ""
-
-st.markdown(f"""
-    <div class="cards-container">
-        {apple_card}
-        {spotify_card}
     </div>
 """, unsafe_allow_html=True)
 
