@@ -345,8 +345,9 @@ if fotos_b64:
         }
         .carousel-track {
             display: flex;
-            animation: scroll 10s linear infinite;
+            animation: scroll 40s linear infinite;
             gap: 20px;
+            padding-left: 20px;
         }
         .carousel-track:hover {
             animation-play-state: paused;
