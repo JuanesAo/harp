@@ -2,6 +2,8 @@ import streamlit as st
 import base64
 import os
 import glob
+from PIL import Image
+import io
 
 # Configuración de la página
 st.set_page_config(
@@ -266,6 +268,23 @@ def get_image_base64(image_path):
     except:
         return None
 
+# Función optimizada para carrusel (redimensiona y comprime)
+def get_optimized_image_base64(image_path, max_size=300, quality=60):
+    try:
+        img = Image.open(image_path)
+        # Convertir RGBA a RGB si es necesario
+        if img.mode == 'RGBA':
+            img = img.convert('RGB')
+        # Redimensionar manteniendo proporción
+        img.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
+        # Guardar en buffer con compresión
+        buffer = io.BytesIO()
+        img.save(buffer, format="JPEG", quality=quality, optimize=True)
+        buffer.seek(0)
+        return base64.b64encode(buffer.read()).decode()
+    except:
+        return None
+
 # Cargar imágenes
 apple_music_b64 = get_image_base64("imagenes/logos/apple_music.jpg")
 spotify_b64 = get_image_base64("imagenes/logos/spotify_logo.png")
@@ -302,10 +321,10 @@ with col2:
 fotos_path = "imagenes/fotos/*.jpeg"
 fotos = glob.glob(fotos_path)
 
-# Convertir fotos a base64
+# Convertir fotos a base64 (optimizadas)
 fotos_b64 = []
 for foto in fotos:
-    foto_b64 = get_image_base64(foto)
+    foto_b64 = get_optimized_image_base64(foto, max_size=300, quality=70)
     if foto_b64:
         fotos_b64.append(foto_b64)
 
