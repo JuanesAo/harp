@@ -321,29 +321,16 @@ with col2:
 fotos_path = "imagenes/fotos/*.jpeg"
 fotos = sorted(glob.glob(fotos_path))  # Ordenar para consistencia
 
-# Debug: Mostrar cuántas fotos se encontraron
-st.write(f"Fotos encontradas: {len(fotos)}")
-
 # Convertir fotos a base64 (optimizadas)
 fotos_b64 = []
-fotos_cargadas = 0
-fotos_fallidas = 0
 for foto in fotos:
     foto_b64 = get_optimized_image_base64(foto, max_size=300, quality=70)
     if foto_b64:
         fotos_b64.append(foto_b64)
-        fotos_cargadas += 1
-    else:
-        fotos_fallidas += 1
-
-# Debug: Mostrar estadísticas
-st.write(f"Fotos cargadas correctamente: {fotos_cargadas}")
-if fotos_fallidas > 0:
-    st.write(f"Fotos que fallaron al cargar: {fotos_fallidas}")
 
 # Crear HTML del carrusel
 if fotos_b64:
-    st.markdown('<div style="margin-top: 60px;"><h2 style="text-align: center; color: #ff0000; font-family: Georgia, serif; margin-bottom: 30px;">📸 Top Fotos de Ambos 📸</h2></div>', unsafe_allow_html=True)
+    st.markdown('<div style="margin-top: 60px;"><h2 style="text-align: center; color: #ff0000; font-family: Georgia, serif; margin-bottom: 30px;">📸 Lindas fotos, scrolear a la derecha →</h2></div>', unsafe_allow_html=True)
     
     # CSS para el slider horizontal
     st.markdown("""
