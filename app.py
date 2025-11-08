@@ -1,5 +1,7 @@
 import streamlit as st
 import base64
+import os
+import glob
 
 # Configuración de la página
 st.set_page_config(
@@ -259,6 +261,87 @@ with col2:
             </a>
         </div>
     """, unsafe_allow_html=True)
+
+# Carrusel de fotos
+# Obtener todas las fotos
+fotos_path = "imagenes/fotos/*.jpeg"
+fotos = glob.glob(fotos_path)
+
+# Convertir fotos a base64
+fotos_b64 = []
+for foto in fotos:
+    foto_b64 = get_image_base64(foto)
+    if foto_b64:
+        fotos_b64.append(foto_b64)
+
+# Crear HTML del carrusel
+if fotos_b64:
+    st.markdown('<div style="margin-top: 60px;"><h2 style="text-align: center; color: #ff0000; font-family: Georgia, serif; margin-bottom: 30px;">💕 Momentos Especiales 💕</h2></div>', unsafe_allow_html=True)
+    
+    # CSS para el carrusel animado
+    st.markdown("""
+        <style>
+        .carousel-container {
+            overflow: hidden;
+            width: 100%;
+            margin: 40px 0;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px 0;
+            border-radius: 15px;
+        }
+        .carousel-track {
+            display: flex;
+            animation: scroll 60s linear infinite;
+            gap: 20px;
+        }
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+        .carousel-item {
+            min-width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+            border: 3px solid #ff0000;
+        }
+        .carousel-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.7);
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # Duplicar las fotos para efecto infinito
+    fotos_html = ""
+    for foto_b64 in fotos_b64:
+        fotos_html += f'<div class="carousel-item"><img src="data:image/jpeg;base64,{foto_b64}" alt="Foto"></div>'
+    
+    # Duplicar para efecto infinito
+    carousel_html = f"""
+        <div class="carousel-container">
+            <div class="carousel-track">
+                {fotos_html}
+                {fotos_html}
+            </div>
+        </div>
+    """
+    
+    st.markdown(carousel_html, unsafe_allow_html=True)
 
 # Pie de página romántico
 st.markdown('<div class="hearts">🖤</div>', unsafe_allow_html=True)
