@@ -243,7 +243,7 @@ st.markdown('<div class="title">🌹 Para Harp / Manu 🌹</div>', unsafe_allow_
 st.markdown("""
     <div class="romantic-message">
         Mis sentimientos fueron tan grandes<br>
-        que logré partirlos en 182 pedacitos,<br>
+        que logré partirlos en 189 pedacitos,<br>
         y a cada uno le di forma de canción.<br>
         <br>
         No sé si esta playlist es tristeza, amor o memoria.<br>
